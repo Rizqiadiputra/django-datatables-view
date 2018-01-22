@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n staticfiles %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script> -->
+<script src="{% static "tabel/tabel.js" %}"></script>
+<!-- <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/> -->
+<script type="text/javascript">
+    var USERS_LIST_JSON_URL = '{% url "person_list_json" %}';
+    var oLanguages = {
+        oPaginate:{
+            sFirst:'<<',
+            sLast:'>>',
+            sNext:'>',
+            sPrevious: '<'
+        },
+        sInfo:'{% trans "Showing _START_ to _END_ of _TOTAL_ entries" %}',
+        sInfoEmpty: '{% trans "No entries to show" %}',
+        sInfoFiltered: '{% trans "(filtered from _MAX_ total entries)" %}',
+        sLengthMenu: '{% trans "Show _MENU_ entries" %}',
+        sProcessing: '{% trans "Processing" }',
+        sSearch: '{% trans "Filter records:" %}',
+        sZeroRecords: '{% trans "No data to show" %}'
+    }
+</script>
+{% endblock %}
+{% block content %}
+<table class="dataTable" id="datatable">
+    <thead>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Company" %}</th>
+        <th>{% trans "Expertise" %}</th>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+{% endblock %}
+    <p>{{personalia}}</p>
+
+    {% for orang in personalia %}
+   <p>Object(tabel): {{ orang }}</p> 
+    <div>
+        <p>nama: {{ orang.name }}</p>
+        <p>perusahaan: {{ orang.company }}</p>
+        <p>keahlian: {{ orang.expertise|linebreaksbr }}</p>
+    </div>
+    {% endfor %}
